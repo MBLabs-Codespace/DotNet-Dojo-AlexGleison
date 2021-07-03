@@ -37,7 +37,8 @@ namespace Dojo.JwtWebApi {
 
 			app.UseRouting();
 
-			app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); app.UseAuthentication();
+			app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()); 
+			app.UseAuthentication();
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints => {
@@ -75,8 +76,8 @@ namespace Dojo.JwtWebApi {
 				x.TokenValidationParameters = new TokenValidationParameters {
 					ValidateIssuerSigningKey = true,
 					IssuerSigningKey = new SymmetricSecurityKey(key),
-					ValidateIssuer = false,
-					ValidateAudience = false
+					ValidateIssuer = true,
+					ValidateAudience = false,
 				};
 			});
 		}
