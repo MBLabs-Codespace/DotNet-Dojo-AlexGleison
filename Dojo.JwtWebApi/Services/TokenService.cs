@@ -30,9 +30,10 @@ namespace Dojo.JwtWebApi.Services
 					new Claim(ClaimTypes.Role, user.Role.ToString())
 				}),
 				Expires = DateTime.UtcNow.AddHours(2),
-				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+				EncryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Yiozei9cwEZbEAdA")),SecurityAlgorithms.Aes256CbcHmacSha512, SecurityAlgorithms.Aes128CbcHmacSha256)
 			};
-			var token = tokenHandler.CreateToken(tokenDescriptor);
+			var token = tokenHandler.CreateJwtSecurityToken(tokenDescriptor);
 			return tokenHandler.WriteToken(token);
 		}
 	}
